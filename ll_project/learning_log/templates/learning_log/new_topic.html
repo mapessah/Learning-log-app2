@@ -1,0 +1,16 @@
+{% extends 'learning_log/base.html' %}
+
+{% block title %}New Topic{% endblock %}
+
+{% block content %}
+    <div id="new-topic-form-page">
+        <h1>New Topic</h1>
+        <p>Add a new topic <i>(maximum no of characters is 200)</i></p>
+        
+        <form action="{% url 'learning_log:new_topic' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button name="submit" id="new-topic-button">Add Topic</button>
+        </form>
+    </div>
+{% endblock content %}

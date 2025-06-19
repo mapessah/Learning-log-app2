@@ -1,0 +1,20 @@
+{% extends 'learning_log/base.html' %}
+
+{% block title %}Edit Entry{% endblock title %}
+
+{% block content %}
+    <div id="edit-entry-form-page">
+        <h1>Edit Your Entry</h1>
+        <p>
+            <b>Topic :</b>
+            <a href="{% url 'learning_log:topic' topic.id %}"> <i>{{ topic.text }}</i></a>
+        </p>
+        Edit entry below and click Save:
+        <form action="{% url 'learning_log:edit_entry' entry.id %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button name="submit" id="edit-entry-form-button">Save Entry</button>
+        </form>
+    </div>
+
+{% endblock content %}

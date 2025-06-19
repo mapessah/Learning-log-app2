@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> {% block title %}{% endblock %} </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'learning_log/css/base_styles.css' %}">
+        {% block extra_head %}{% endblock extra_head %}
+    </head>
+
+    <body>
+        <div id="body-content">
+
+            <!-- Navigation bar -->
+            <div id="navigation-bar">
+                <p>
+                    <div id="navigation-item">
+                        <a href="{% url 'learning_log:index' %}">Home</a>
+                    </div>
+                    <div id="navigation-item">
+                        <a href="{% url 'learning_log:topics' %}">Topics</a>
+                    </div>
+
+                {% if user.is_authenticated %}
+                    <div id="navigation-item">
+                        <form action="{% url 'accounts:logout' %}" method="post">
+                            {% csrf_token %}
+                            <button name="submit" id="logout-button">Sign out</button>
+                        </form>
+                    </div>
+                    <div id="navigation-item">Hello <span id="username">{{ user.username }}</span></div>
+                {% else %}
+                    <div id="navigation-item"><a href="{% url 'accounts:login' %}">Login</a></div>
+                    <div id="navigation-item"><a href="{% url 'accounts:register' %}">Register</a></div>
+                {% endif %}
+                </p>
+            </div>
+
+            <!-- Main page contents -->
+            <div id="block-content">
+            {% block content %}
+                
+            {% endblock content %}
+            </div>
+            
+            <!-- Page Footer -->
+            <div id="footer">
+                &copy; 2025 Learning Log App,
+                <a href="https://github.com/mapessah/">Mapessah</a>
+            </div>
+        </div>
+    </body>
+</html>

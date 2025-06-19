@@ -1,0 +1,45 @@
+{% extends 'learning_log/base.html' %}
+
+{% block title %}{{ topic.text }}{% endblock title %}
+
+{% block content %}
+    <div id="topic-page">
+        <h1>Entries</h1>
+        <p>The following are your entries on <strong><i>{{ topic.text }}</i></strong>.</p>
+
+        <p>
+            <a href="{% url 'learning_log:new_entry' topic.id %}" id="new-entry-button">Add a new Entry</a>
+        </p>
+        
+        {% for entry in entries %}
+            <div id="entry-display-box">
+                <p>
+                    <strong>{{ entry.date_added|date:'M d, Y' }}</strong>
+                    [ <i>{{ entry.date_added|date:' H:i' }}</i> ]
+                </p>
+                    
+                <p>{{ entry.text|linebreaks }}</p>
+                <p>
+                    <div>
+                        <a href="{% url 'learning_log:edit_entry' entry.id %}" id="edit-entry-button" class="left">Edit Entry</a>
+                        <a href="{% url 'learning_log:delete_entry' entry.id %}" id="delete-entry-button" class="right">Delete Entry</a>
+                        <br><br>
+                        <p id="delete-caution-p"><span id="delete-caution-span">No Recovery! No Confirmation!</span></p>
+                        <p id="delete-caution-p"><span id="delete-caution-span">Be Careful when deleting!</span></p>
+                    </div>
+                </p>
+            </div>
+                
+        {% empty %}
+            <p>No entries added for this topic!</p>
+        {% endfor %}
+        
+        <!-- If entries are more, place another button at the end -->
+        {% if button2 %}
+            <p>
+                <a href="{% url 'learning_log:new_entry' topic.id %}" id="new-entry">Add a new Entry</a>
+            </p>
+        {% endif %}
+    </div>
+
+{% endblock content %}

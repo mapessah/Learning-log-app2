@@ -1,0 +1,27 @@
+{% extends 'learning_log/base.html' %}
+
+{% block title %}Topics{% endblock title %}
+
+{% block content %}
+    <div id="topics-page">
+        <h1>Topics</h1>
+        <p>Hello <span id="username">{{ user.username }}</span>, the following are topics you added:</p>
+
+        <ol>
+            {% for topic in topics %}
+                <li id="topics-as-list">
+                    <a href="{% url 'learning_log:topic' topic.id %}">
+                        {{ topic.text }}
+                    </a>
+                </li>
+            {% empty %}
+                <p> > You haven't added any topics yet!</p>
+            {% endfor %}
+        </ol>
+
+        <p>
+            <a href="{% url 'learning_log:new_topic' %}" id="new-topic-button">Add a new topic</a>
+        </p>
+        
+    </div>
+{% endblock content %}
